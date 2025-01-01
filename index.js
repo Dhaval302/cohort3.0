@@ -64,26 +64,17 @@ app.post("/signin", (req, res) => {
             username: user.username
         }, JWT_SECRET);
 
-        // user.token = token;
-        res.send({
+        res.header("jwt", token);
+        res.json({
             token
         })
+
         console.log(users);
     } else {
-        res.status(403).send({
+        res.status(401).send({
             message: "Invalid username or password"
         })
     }
-});
-
-
-app.post("/sum", function(req, res) {
-    const a = parseInt(req.body.a);
-    const b = parseInt(req.body.b);
-    let c = a+b;
-    res.json({
-        ans: c
-    })
 });
 
 
@@ -106,30 +97,6 @@ app.get("/me", auth, (req, res) => {
 })
 
 
-app.get("/multiply", function(req, res) {
-    const a = req.query.a;
-    const b = req.query.b;
-    res.json({
-        ans: parseInt(a) * parseInt(b)
-    })
-});
-
-app.get("/divide", function(req, res) {
-    const a = req.query.a;
-    const b = req.query.b;
-    res.json({
-        ans: parseInt(a) / parseInt(b)
-    })
-
-});
-
-app.get("/subtract", function(req, res) {
-    const a = req.query.a;
-    const b = req.query.b;
-    res.json({
-        ans: parseInt(a) + parseInt(b)
-    })
-});
 
 app.get("/", function(req, res) {
     res.sendFile(__dirname + "/public/index.html");

@@ -40,12 +40,14 @@ async function getUserInformation() {
     if (token) {
         const response = await axios.get("http://localhost:3000/me", {
             headers: {
-                Authorization: token
+                token: token
             }
         });
         document.getElementById("information").innerHTML = response.data.username;
     }
 }
+
+getUserInformation();
   </script>
 </head>   
 
